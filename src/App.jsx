@@ -1,21 +1,39 @@
   import React, { Component } from 'react';
+  import  Clock from './Clock';
   import './App.css';
+  import {Form , FormControl, Button} from 'react-bootstrap';
 
   class App extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        deadline: 'December 25, 2018',
+        newDeadLine: ''
+      }
+    }
+
+    ChangeDeadline() {
+      this.setState({deadline: this.state.newDeadLine});
+    }
+
     render() {
       return (
       <div className="App">
-        <div className="App-title">Coutdown to December 25, 2018</div>
-        <div>
-          <div className="Clock-days">14 days</div>
-          <div className="Clock-hours">30 hours</div>
-          <div className="Clock-minutes">15 minutes</div>
-          <div className="Clock-seconds">20 seconds</div>
-        </div>
-        <div>
-          <input placeholder='new date'/>
-          <button>Submit</button>
-        </div>
+        <div className="App-title">
+          Coutdown to {this.state.deadline}</div>
+        <Clock
+          deadline={this.state.deadline}
+        />
+        <Form inline>
+          <FormControl
+            className="Deadline-input"
+            placeholder='new date'
+            onChange={event => this.setState({newDeadLine: event.target.value})}
+          />
+          <Button onClick={() => this.ChangeDeadline()}>
+            Submit
+          </Button>
+        </Form>
       </div>
       )
     }
